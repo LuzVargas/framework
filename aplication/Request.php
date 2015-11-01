@@ -1,6 +1,9 @@
 <?php
 /**
- *@author  Luz Elena Vargas luz.vt.89@gmail.com 
+ * @author  Luz Elena Vargas luz.vt.89@gmail.com 
+ * @version  1.0
+ * @package  aplication
+ * @copyright  2015
  * 
  */
 

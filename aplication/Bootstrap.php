@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @author  Luz Vargas luz.vt.89@gmail.com
+ * @version  1.0
+ * @package  aplication
+ * @copyright  2015
+ *
+ */
+
 class Bootstrap
 {
 	public static function run(Request $peticion){

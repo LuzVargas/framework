@@ -1,9 +1,21 @@
 <?php
+/**
+ * @author  Luz Vargas luz.vt.89@gmail.com
+ * @version  1.0
+ * @package  aplication
+ * @copyright  2015
+ *
+ */
 
 class View
 {
 	private $_controlador;
 	private $_metodo;
+	
+/**
+ * Constructor de la clase
+ * @return void
+ */
 
 	public function __construct(Request $peticion){
 		$this->_controlador = $peticion->getControlador();

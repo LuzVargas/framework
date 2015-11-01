@@ -4,7 +4,11 @@
  * 
  * Colección de funciones para validar filtro de datos, rangos y valores
  * @author  Luz Elena Vargas Tec <luz.vt.89@gmail.com>
+ * @version  1.0
+ * @package  libs
+ * @copyright  2015
  */
+
 class Validations {
 	
 	/**

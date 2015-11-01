@@ -1,4 +1,14 @@
 <?php
+/**
+ *Archivo de clase de conexión PDO 
+ * 
+ * Clase que peermite acciones Crud usando PDO
+ * 
+ * @package  PDO
+ * @author  Luz Elena Vargas Tec <luz.vt.89@gmail.com>
+ * @version  1.0
+ * 
+ */
 
 class classPDO{
 	public $connection;
@@ -12,12 +22,14 @@ class classPDO{
 	public $lastInsertId;
 	public $numberRows;
 
-	public function __construct(
-		$drive = 'mysql',
-		$host = 'localhost',
-		$database = 'gestion',
-		$username = 'root',
-		$password = ''){
+	/**
+	 *Constructor de la clase 
+	 * 
+	 * @return  void
+	 */
+
+	public function __construct($drive = 'mysql',$host = 'localhost',$database = 'gestion',
+		$username = 'root',$password = ''){
 
 		$this->drive = $drive;
 		$this->host = $host;
@@ -26,6 +38,14 @@ class classPDO{
 		$this->password = $password;
 		$this->connection();
 		}
+
+		/**
+		 * Método de conexión a la base de datos.
+		 * 
+		 * Método que permite establecer una conexión a la Base de Datos.
+		 * 
+		 * @return  void
+		 */
 
 		private function connection(){
 			$this->dns = $this->drive.':host='.$this->host.';dbname='. $this->database;
@@ -45,6 +65,26 @@ class classPDO{
 				die();
 			}
 		}
+
+		/**
+		 * @method  find
+		 * 
+		 * Método que sirve para hacer consultas a la Base de Datos.
+		 * 
+		 * @param string $table nombre de la tabla a consultar.
+		 * @param  string $query tipo de consulta.
+		 * -all
+		 * -first
+		 * -count
+		 * @param  array $options restricciones en la consulta.
+		 * -fields
+		 * -conditions
+		 * -group
+		 * -order
+		 * -limit
+		 * @return  object
+		 * 
+		 */
 
 		public function find($table = null,$query=null, $options = array()){
 
@@ -96,6 +136,17 @@ class classPDO{
 
 		}
 
+		/**
+		 *@method  save
+		 * 
+		 * Método que sirve para guardar registros
+		 * 
+		 * @param  string $table tabla a consultar.
+		 * @param  array $data valores a guardar.
+		 * @return  object
+		 * @author  Luz Vargas luz.vt.89@gmail.com 
+		 */
+
 		public function save($table = null, $data = array()){
 			$sql = "SELECT * FROM $table";
 			$result = $this->connection->query($sql);
@@ -125,6 +176,18 @@ class classPDO{
 
 			return $this->result;
 		}
+
+		/**
+		 * @method  update
+		 * 
+		 * Método que sirve para actualizar registros.
+		 * 
+		 * @param  string $table tabla a consultar
+		 * @param  array $data valores a actualizar
+		 * @return  object
+		 * @author  Luz Vargas luz.vt.89@gmail.com
+		 */
+
 		public function update($table = null, $data = array()){
 			$sql = "SELECT * FROM $table";
 			$result = $this->connection->query($sql);
@@ -155,6 +218,17 @@ class classPDO{
 
 			return $this->result;
 		}
+
+		/**
+		 *@method   delete
+		 * 
+		 * Método que sirve para eliminar registros.
+		 * 
+		 * @param  string $table tabla a consultar
+		 * @param  string $condition condición a cumplir
+		 * @return  object
+		 * @author  Luz Vargas luz.vt.89@gmail.com 
+		 */
 
 		public function delete($table = null, $condition = null){
 			

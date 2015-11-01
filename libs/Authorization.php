@@ -3,8 +3,12 @@
  * Clase Authorization
  * 
  * Clase que sirve para validar usuarios en el sistema
- * @author  Cristian Bernal <crisbera@gmail.com>
+ * @author  Luz Vargas <luz.vt.89@gmail.com>
+ * @version  1.0
+ * @package  libs
+ * @copyright  2015
  */
+
 class Authorization{
 	
 	/**

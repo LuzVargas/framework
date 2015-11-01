@@ -2,6 +2,14 @@
 
 //print_r($_GET['url']); // sirve para listar
 
+/**
+ * @author  Luz Vargas luz.vt.89@gmail.com
+ * @version  1.0
+ * @package  Framework
+ * @copyright 2015
+ */
+//Framework Básico de Modelo,Vista,Controlador
+
 /*
 /lunux
 \windows
@@ -24,16 +32,11 @@ require_once(APP_PATH. "Autoload.php");
 //Comprobar que los archivos se estan cargando correctamente
 //echo "<pre>";print_r(get_required_files());
 
-/*
-$r = new Request();
-echo $r ->getControlador()."<br>";
-echo $r->getMetodo()."<pre>";
-print_r($r->getArgs());
-*/
 try{
 	Bootstrap::run(new Request);
 }catch(Exception $e){
 	echo $e->getMessage();
 }
+
 
 

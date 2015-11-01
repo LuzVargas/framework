@@ -3,6 +3,13 @@
 * Clase para el manejo de contraseñas
 *
 */
+/**
+ * @author  Luz Vargas luz.vt.89@gmail.com
+ * @version  1.0
+ * @package  libs
+ * @copyright  2015
+ *
+ */
 class Password{
 	
 	public function __construct(){

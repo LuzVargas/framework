@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * clase usuariosController
+ * @author  Luz Vargas luz.vt.89@gmail.com
+ * @version  1.0
+ * @package  controllers
+ * @copyright  2015
+ *
+ */
 class usuariosController extends AppController
 {
 	public function __construct(){
@@ -8,6 +17,14 @@ class usuariosController extends AppController
 		$this->_view->usuarios =$this->db->find('usuarios','all');
 		$this->_view->renderizar('index');		
 	}
+/**
+ * 	 
+ * Metodo save 
+ * Metodo que sirve para guardar usuarios
+ * 
+ * @author  Luz Vargas luz.vt.89@gmail.com
+ *
+ */
 	public function add(){
 		if ($_POST){
 			$pass = new Password();
@@ -25,16 +42,25 @@ class usuariosController extends AppController
 		}	
 	}
 
+/**
+ * 	 
+ * Metodo update  
+ * Metodo que sirve para actualizar usuarios
+ * 
+ * @author  Luz Vargas luz.vt.89@gmail.com
+ *
+ */
 	public function edit($id = null){
 		if ($_POST){
 			if (!empty($_POST['pass'])) {
-				$pass = new Password();
-				$_POST['password'] = $pass->getPassword($_POST['pass']);;
+				#$pass = new Password();
+				$_POST['password'] = $this->pass->getPassword($_POST['password']);
 			}
-			if ($this->db->update("usuarios", $_POST)) {
+			if ($this->db->update('usuarios', $_POST)) 
+			{
 				$this->redirect(array('controller'=>'usuarios', 'action'=>'index'));
 			}else{
-				$this->redirect(array('controller'=>'usuarios', 'action'=>'edit'));
+				$this->redirect(array('controller'=>'usuarios', 'action'=>'edit/'.$_POST['id']));
 			}
 		}else{
 			$this->_view->titulo = "Editar usuario";
@@ -43,7 +69,15 @@ class usuariosController extends AppController
 		}	
 		
 	}
-
+	
+/**
+ * 	 
+ * Metodo delete   
+ * Metodo que sirve para eliminar  usuarios
+ * 
+ * @author  Luz Vargas luz.vt.89@gmail.com
+ *
+ */
 	public function delete($id = null){
 		$conditions = 'id='.$id;
 		if ($this->db->delete('usuarios', $conditions)) {
@@ -56,6 +90,13 @@ class usuariosController extends AppController
 		}
 	}
 
+	/**
+	 * Método login
+	 * 
+	 * Método que permite que el usuario inicie sesión en el sistema
+	 * @param  $options array con los datos del usuario
+	 * @return  renderizar 
+	 */
 	public function login(){
 		if ($_POST){
 			$pass = new Password();
@@ -78,6 +119,14 @@ class usuariosController extends AppController
 		}
 		$this->_view->renderizar('login');
 	}
+
+	/**
+ 	* @method logout
+ 	* Método logout
+ 	* 
+ 	* Método que termina la sesión del usuario
+ 	* 
+ 	*/
 	public function logout(){
 		$auth = new Authorization();
 		$aut->logout();
