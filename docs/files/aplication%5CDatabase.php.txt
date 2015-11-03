@@ -95,6 +95,10 @@ class classPDO{
 			if (!empty($options['fields'])){
 				$fields = $options['fields'];
 			}
+			//Join
+			if(!empty($options['join'])) {
+			$parameters .= ' JOIN '.$options['join'].' ON '.$options['on'];
+			}
 
 			if (!empty($options['conditions'])){
 				$parameters = 'WHERE '.$options['conditions'];
@@ -111,24 +115,30 @@ class classPDO{
 
 			
 			switch ($query) {
+				case 'join':
+					$sql = "SELECT $fields FROM ".$table.' '.$parameters;
+					$this->result = $this->connection->query($sql);
+				break;
+
 				case 'all':
-					$sql ="SELECT $fields FROM $table".' '.$parameters;
+					$sql ="SELECT $fields FROM ".$table.' '.$parameters;
 					$this->result =$this->connection->query($sql);
 				break;
+
 				case 'count':
-					$sql ="SELECT COUNT(*) FROM $table".' '.$parameters;
+					$sql ="SELECT COUNT(*) FROM ".$table.' '.$parameters;
 					$result = $this->connection->query($sql);
 					$this->result = $result->fetchColumn();
 				break;
 				
 				case 'first':
-					$sql ="SELECT $fields FROM $table".' '.$parameters;
+					$sql ="SELECT $fields FROM ".$table.' '.$parameters;
 					$result = $this->connection->query($sql);
 					$this->result = $result->fetch();
 				break;
 					
 				default:
-					$sql ="SELECT $fields FROM $table".' '.$parameters;
+					$sql ="SELECT $fields FROM ".$table.' '.$parameters;
 					$this->result = $this->connection->query($sql);
 				break;
 			}
@@ -173,7 +183,7 @@ class classPDO{
 			#exit;
 
 			$this->result = $this->connection->query($sql);
-
+			$this->lastInsertId = $this->connection->lastInsertId();
 			return $this->result;
 		}
 
@@ -198,11 +208,11 @@ class classPDO{
 			}
 
 			if (array_key_exists("id", $data)){
-				$fieldsToSave = "";
+				$fieldsToSave = ""; //Update
 				$id = $data["id"];
 				unset($data["id"]);
 
-				$i = 0;
+				#$i = 0;
 				foreach ($data as $key => $value) {
 					if (array_key_exists($key, $fields)) {
 						$fieldsToSave .=$key."="."\"$value\", ";

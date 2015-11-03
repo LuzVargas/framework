@@ -11,6 +11,15 @@
 
 <form action="<?php APP_URL.'tareas/add';?>" method="POST" >
 	<p>Nombre: <input type="text" name="nombre"></p>
+	<p>Categoria: 
+
+	<select name="categoria_id">
+        <option value="">Selecciona</option>
+        <?php foreach ($this->categorias as $categoria): ?>
+        <option value="<?php echo $categoria["id"]; ?>"><?php echo $categoria["nombre"]; ?></option>
+        <?php endforeach; ?>
+    </select></p>
+
 	<p>Fecha: <input type="text" name="fecha"></p>
 	<p>Prioridad: <input type="text" name="prioridad"></p>
 	<p>Status: <input type="text" name="status"></p>

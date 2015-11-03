@@ -1,78 +1,69 @@
 <?php
-/**
- * @author  Luz Vargas luz.vt.89@gmail.com
- * @version  1.0
- * @package  categoriasController
- * @category  Controlador
-*/
 
-class Categorias extends AppController
+class categoriasController extends AppController
 {
-	/**
-	*Método constructor
-	* @return  void
-	*/
-	public function __construct()
-	{
+	 /**
+	  * Clase categorias
+	 * Archivo de clase de acciones CRUD en PDO
+	 *
+	 * Clase que permite accionar CRUD de la seccion categorias
+	 * @author Luz Vargas <luz.vt.89@gmail.com>
+	 */
+	public function __construct(){
 		parent::__construct();
 	}
 
-	/**
-	*Método index
-	* @return  void
-	*/
-
 	public function index(){
-		$categorias = $this->db->find("categorias", "all");
-		$this->set("categorias", $categorias);
+		//echo "Hola desde el metodo index";
+		
+		$this->_view->titulo = "Pagina principal";
+		$this->_view->categorias = $this->db->find("categorias", "all", NULL);
+		$this->_view->renderizar("index");
+
+		
 	}
 
-	/**
-	*Método agregar
-	* @return  void
-	*/
+	 /**
+	 * Metodo que permite agregar una nueva categoria por parte del controlador 
+	 */
 	public function add(){
-		if($_POST){
-			if($this->db->save("categorias", $_POST)){
-				$this->redirect(array("controller"=>"categorias"));
+		if ($_POST) {
+			if ($this->db->save("categorias", $_POST)) {
+				$this->redirect(array("controller" =>"categorias"));
 			}else{
-				$this->redirect(array(
-					"controller"=>"categorias","action"=>"add")
-				);
+				$this->redirect(array("controller" => "categorias", "action" => "add"));
 			}
 		}else{
-			$this->_view->titulo = "Agregar categorias";
-			$this->_view->renderizar('add');	
+			$this->_view->titulo = "Agregar categoria";
 		}
+		$this->_view->renderizar("add");
 	}
 
-	/**
-	*Método editar
-	* @return  void
-	*/
-	public function edit($id = null){
-		if($_POST)
-		{
-			if($this->db->update('categorias', $_POST)){
-				$this->redirect(array('controller' => 'categorias', 'action' => 'index'));
-			}else{
-				$this->redirect(array('controller' => 'categorias', 'action' => 'edit/'.$_POST['id']));
-			}
+     /**
+	 * Metodo que permite editar la categoria por parte del controlador 
+	 */
+	public function edit($id = NULL){
+		if ($_POST) {
+			if ($this->db->update("categorias", $_POST)) {
+					$this->redirect(array("controller" => "categorias", "action" => "index"));
+				}else{
+					$this->redirect(array("controller" => "categorias", "action" => "edit/".$_POST["id"]));
+				}	
 		}else{
 			$this->_view->titulo = "Editar categoria";
-			$this->_view->categoria = $this->db->find('categorias', 'first', array('conditions' => 'id='.$id));
-			$this->_view->renderizar('edit');
+			$this->_view->categoria = $this->db->find("categorias", "first", array("conditions" => "id=".$id));
+			$this->_view->renderizar("edit");
 		}
 	}
 
+
 	/**
-	*Método eliminar
-	* @return  void
-	*/
-	public function delete($id = null){
-		$condition = 'id='.$id;
-		if($this->db->delete('categorias', $condition)){
-			$this->redirect(array('controller' => 'categorias', 'action' => 'index'));
+	 * Metodo que elimina la categoria por parte del controlador 
+	 */
+	public function delete($id = NULL){
+		$conditions = "id=".$id;
+		if ($this->db->delete("categorias", $conditions)) {
+			$this->redirect(array("controller" => "categorias", "action" => "index"));
 		}
 	}
-} 
+}

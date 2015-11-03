@@ -4,7 +4,7 @@
  * @version  1.0
  * @package  tareas
  * @copyright  2015
- * Archivo para ver a las tareas que estan en la BD
+ * Archivo para ver la lista de tareas que estan en la BD
  */
 ?>
 <h2 align="center">Listado de tareas</h2>
@@ -15,6 +15,7 @@
 	<tr>
 		<th>ID</th>
 		<th>Nombre</th>
+		<th>Categoria</th>
 		<th>Feha</th>
 		<th>Prioridad</th>
 		<th>Status</th>
@@ -24,12 +25,13 @@
 	<tr>
 		<td><?php echo $tarea['id'];?></td>
 		<td><?php echo $tarea['nombre'];?></td>
+		<td><?php echo $tarea['categoria'];?></td>
 		<td><?php echo $tarea['fecha'];?></td>
 		<td><?php echo $tarea['prioridad'];?></td>
 		<td><?php echo $tarea['status'];?></td>
 		<td>
 			
-			<a href="<?php echo APP_URL."tareas/edit/".$tarea['id']; ?>">Editar</a>
+			<a href="<?php echo APP_URL."tareas/edit/".$tarea['id']; ?>">Editar</a> |
 			<a href="<?php echo APP_URL."tareas/delete/".$tarea['id']; ?>">Eliminar</a>
 		</td>
 	</tr>

@@ -18,7 +18,8 @@ class Bootstrap
 
 		if (is_readable($rutaControlador)) {
 			require_once $rutaControlador;
-
+			#echo $rutaControlador;
+			#exit;
 			$controller = new $controller;
 
 			if (is_callable(array($controller, $metodo))) {
@@ -27,15 +28,16 @@ class Bootstrap
 				$metodo = "index";
 			}
 			
-			if ($metodo=='login') {
+			if ($metodo=="login") {
 
 			}else{
 				//Envía directamente al login antes de otras acciones
-				#Authorization::logged();
+				Authorization::logged();
 			}
 
 			if (isset($args)) {
-				call_user_func_array(array($controller, $metodo), $args);
+				//call_user_func_array(array($controller, $metodo), $args);
+				call_user_func_array(array($controller, $metodo), $peticion->getArgs());
 			}else{
 				call_user_func(array($controller, $metodo));
 			}
