@@ -10,10 +10,17 @@
  */
 class usuariosController extends AppController
 {
+	
+	private $pass;
 	public function __construct(){
-		parent:: __construct();
+		parent::__construct();
 	}
-	public function index(){
+/**
+ * Método Index
+ * @author  Luz Vargas luz.vt.89@gmail.com 
+ */
+	public function index(){		
+		$this->_view->titulo = "Usuarios";
 		$this->_view->usuarios =$this->db->find('usuarios','all');
 		$this->_view->renderizar('index');		
 	}
@@ -28,7 +35,6 @@ class usuariosController extends AppController
 	public function add(){
 		if ($_POST){
 			$pass = new Password();
-
 			$_POST['password'] = $pass->getPassword($_POST['password']);
 
 			if ($this->db->save("usuarios", $_POST)) {
@@ -53,7 +59,7 @@ class usuariosController extends AppController
 	public function edit($id = null){
 		if ($_POST){
 			if (!empty($_POST['pass'])) {
-				#$pass = new Password();
+				$pass = new Password();
 				$_POST['password'] = $this->pass->getPassword($_POST['password']);
 			}
 			if ($this->db->update('usuarios', $_POST)) 
@@ -79,19 +85,16 @@ class usuariosController extends AppController
  *
  */
 	public function delete($id = null){
-		$conditions = 'id='.$id;
-		if ($this->db->delete('usuarios', $conditions)) {
+		$condition = 'id='.$id;
+		if ($this->db->delete('usuarios', $condition)) {
 			$this->redirect(
-					array(
-						'controller'=>'usuarios',
-						'action'=>'index'
-					)	
+					array('controller'=>'usuarios','action'=>'index')	
 			);
 		}
 	}
 
 	/**
-	 * Método login
+	 * Método Iniciar sesión
 	 * 
 	 * Método que permite que el usuario inicie sesión en el sistema
 	 * @param  $options array con los datos del usuario
@@ -100,13 +103,13 @@ class usuariosController extends AppController
 	public function login(){
 		if ($_POST){
 			$pass = new Password();
-			$filter = new Validation();
+			$filter = new Validations();
 			$auth = new Authorization();
 
 			$username = $filter->sanitizeText($_POST['username']);
 			$password = $filter->sanitizeText($_POST['password']);
 
-			$options = array('conditions'=>"username='$username'");
+			$options ['conditions'] = "username='$username'";
 			$usuario = $this->db->find('usuarios','first',$options);
 
 			if ($pass->isValid($password, $usuario['password'])){
@@ -129,6 +132,6 @@ class usuariosController extends AppController
  	*/
 	public function logout(){
 		$auth = new Authorization();
-		$aut->logout();
+		$auth->logout();
 	}
 }

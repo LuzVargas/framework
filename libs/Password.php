@@ -23,6 +23,7 @@ class Password{
 		}
 	}
 
+	//m´todo para conseguir la contraseña
 	public function getPassword($password, $dig = 7){
 		$set_salt = './1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 		$salt = sprintf('$2a$%02d$', $dig);
@@ -32,7 +33,7 @@ class Password{
 
 		return crypt($password, $salt);
 	}
-
+	//método que valida la contraseña o comprueba que sea correcta
 	public function isValid($pass1, $pass2){
 		if (crypt($pass1, $pass2) == $pass2) {
 			return true;
@@ -40,7 +41,7 @@ class Password{
 		
 		return false;	
 	}
-
+	//verifica la contraseña
 	//v 5.5
 	public function passwordVerify($pass1, $pass2){
 		if (password_verify($pass1, $pass2)) {

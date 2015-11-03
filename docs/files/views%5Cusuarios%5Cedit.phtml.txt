@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author  Luz Vargas luz.vt.89@gmail.com
+ * @version  1.0
+ * @package  usuarios
+ * @copyright  2015
+ * Archivo pra editar usuarios
+ * @method  POST
+ */
+?>
+<h2 align="center">Editar usuarios</h2>
+
+<form action="<?php APP_URL.'usuarios/edit';?>" method="POST" align="center">
+
+	<input type="hidden" name="id" value="<?php echo $this->usuario['id']; ?>">
+	<p>Email: <input type="text" name="nombre" value="<?php echo $this->usuario['email']; ?>"></p>
+	<p>Username: <input type="text" name="fecha" value="<?php echo $this->usuario['username']; ?>"></p>
+	<p>Password: <input type="text" name="prioridad" value="<?php echo $this->usuario['password']; ?>"></p>
+	<p>Status: <input type="text" name="status" value="<?php echo $this->usuario['status']; ?>"></p>
+	<p><input type="submit"></p>
+</form>
+
